@@ -10,16 +10,6 @@ LLMs are bad at generating UiPath code. The XAML they produce is typically inval
 
 **uipath-ai-skills** closes that gap. The agent writes JSON specs; the toolchain emits valid XAML, catches hallucination patterns before they reach your project, and wires the framework for you — so what usually takes days of Studio cleanup becomes minutes of review.
 
----
-
-## Complete walkthrough
-
-[![uipath-ai-skills walkthrough](https://img.youtube.com/vi/0JjiM8sGP08/hqdefault.jpg)](https://youtu.be/0JjiM8sGP08)
-
-End-to-end walkthrough — setup, how to use the skills, and what production output looks like in UiPath Studio.
-
----
-
 ## What you can build
 
 | Automation type | Description | Recommended project |
