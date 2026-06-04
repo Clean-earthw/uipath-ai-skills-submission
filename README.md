@@ -64,7 +64,7 @@ Verify by asking Claude *"List my available skills"* — you should see both `ui
 <summary><strong>Codex CLI</strong></summary>
 
 ```bash
-git clone https://github.com/marcelocruzrpa/uipath-ai-skills.git
+git clone https://github.com/Clean-earthw/uipath-ai-skills-submission.git
 mkdir -p .codex/skills
 cp -r uipath-ai-skills/uipath-core  .codex/skills/uipath-core
 cp -r uipath-ai-skills/uipath-tasks .codex/skills/uipath-tasks
@@ -92,7 +92,7 @@ project_doc_max_bytes = 131072  # 128 KB
 If you're using a different agent or vendoring the plugins into an existing project, clone and copy:
 
 ```bash
-git clone https://github.com/marcelocruzrpa/uipath-ai-skills.git
+git clone https://github.com/Clean-earthw/uipath-ai-skills-submission.git
 
 # Optional: install openpyxl for Config.xlsx management
 pip install "openpyxl>=3.1.0"
