@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/banner.png" alt="uipath-ai-skills" width="100%">
-</p>
-
 # UiPath AI Skills
 
 > Transform natural language into production-ready UiPath automations using Coding Agents, Agent Builder, deterministic workflow generation, and enterprise-grade validation.
