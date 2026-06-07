@@ -210,3 +210,94 @@ This approach ensures reliability, consistency, and enterprise readiness.
 * PDF Processing
 * Human-in-the-Loop Workflows
 * Multi-System Enterprise Processes
+
+## Quick start
+
+> [!IMPORTANT]
+> **Plugin Layout:** Plugins (like `uipath-tasks`) must be installed as sibling directories to `uipath-core`. The runtime loader scans sibling folders for extensions; moving them to a different nested structure will break discovery.
+
+> [!NOTE]
+> **PowerShell:** While the core generators are cross-platform, desktop selector generation via `inspect-ui-tree.ps1` requires PowerShell on a Windows environment.
+
+Adding the skills to your environment is super simple:
+
+<details open>
+<summary><strong>Claude Code</strong></summary>
+
+```
+/plugin marketplace add marcelocruzrpa/uipath-ai-skills
+/plugin install uipath-core@uipath-ai-skills
+/plugin install uipath-tasks@uipath-ai-skills
+```
+
+Verify by asking Claude *"List my available skills"* — you should see both `uipath-core` and `uipath-tasks`.
+
+</details>
+
+<details>
+<summary><strong>Codex CLI</strong></summary>
+
+```bash
+git clone https://github.com/Clean-earthw/uipath-ai-skills-submission.git
+mkdir -p .codex/skills
+cp -r uipath-ai-skills/uipath-core  .codex/skills/uipath-core
+cp -r uipath-ai-skills/uipath-tasks .codex/skills/uipath-tasks
+codex
+```
+
+Or install globally:
+
+```bash
+cp -r uipath-ai-skills/uipath-core  ~/.codex/skills/uipath-core
+cp -r uipath-ai-skills/uipath-tasks ~/.codex/skills/uipath-tasks
+```
+
+If Codex truncates the skill, raise the instruction limit in `~/.codex/config.toml`:
+
+```toml
+project_doc_max_bytes = 131072  # 128 KB
+```
+
+</details>
+
+<details>
+<summary><strong>Manual install</strong></summary>
+
+If you're using a different agent or vendoring the plugins into an existing project, clone and copy:
+
+```bash
+git clone https://github.com/Clean-earthw/uipath-ai-skills-submission.git
+
+# Optional: install openpyxl for Config.xlsx management
+pip install "openpyxl>=3.1.0"
+```
+
+No other dependencies required — all core scripts use Python stdlib.
+
+Copy into a Claude Code project:
+
+```bash
+mkdir -p <your-project>/.claude/skills
+cp -r uipath-ai-skills/uipath-core  <your-project>/.claude/skills/
+cp -r uipath-ai-skills/uipath-tasks <your-project>/.claude/skills/
+```
+
+Copy into a Codex CLI project:
+
+```bash
+mkdir -p <your-project>/.codex/skills
+cp -r uipath-ai-skills/uipath-core  <your-project>/.codex/skills/
+cp -r uipath-ai-skills/uipath-tasks <your-project>/.codex/skills/
+```
+
+</details>
+
+### Using the skill
+
+1. **Start in plan mode when your agent supports it.** In Claude Code, toggle plan mode with Shift+Tab before sending your prompt — the agent reads your **PDD (Process Definition Document)**, drafts a plan, and waits for your approval before touching files. Review the plan, tweak it if needed, then approve and let it execute.
+2. **Name the skill in your prompt** to be sure it loads — e.g. *"Use `uipath-core` to scaffold a REFramework dispatcher for this PDD..."*. The skill also auto-loads when your prompt mentions UiPath, but naming it explicitly is the surest path. For human-in-the-loop or Tasks workflows, name `uipath-tasks`.
+3. **Three ways to use it:**
+   - **Build a project from a PDD** — point the agent at a PDD file and (optionally) tell it the architecture (sequence, dispatcher, or performer). It scaffolds the project, generates the workflows, inspects target apps for selectors, and validates the output.
+   - **Update an existing project** — point it at an existing UiPath project and ask for a bug fix, a new workflow, or a small change. It reads the project structure, generates only the deltas, and re-validates.
+   - **Refactor a legacy project into REFramework** — point it at an existing project built with flat structure or bad practices and ask for a wholesale rewrite. It reads the workflows, proposes a proper decomposition (launch / init / process / action files, Config.xlsx, Object Repository), and migrates the logic into the new shape. *Not battle-tested as the other two modes*
+
